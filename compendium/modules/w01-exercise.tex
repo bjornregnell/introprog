@@ -1,0 +1,518 @@
+%!TEX root = ../compendium.tex
+
+\Exercise{\ExeWeekONE}\label{exe:W01}
+
+\begin{Goals}
+\item Förstå vad som händer när satser exekveras och uttryck evalueras.
+\item Förstå sekvens, alternativ och repetition.
+\item Känna till literalerna för enkla värden, deras typer och omfång.
+\item Kunna deklarera och använda variabler och tilldelning, samt kunna rita bilder av minnessituationen då variablers värden förändras.
+\item Förstå skillnaden mellan olika numeriska typer, kunna omvandla mellan dessa och vara medveten om noggranhetsproblem som kan uppstå.
+\item Förstå booelska uttryck och värdena \code{true} och \code{false}, samt kunna förenkla booelska uttryck.
+\item Förstå skillnaden mellan heltalsdivision och flyttalsdivision, samt använding av rest vid heltalsdivision.
+\item Förstå precedensregler och användning av parenteser i uttryck.
+\item Kunna använda \code{if}-satser och \code{if}-uttryck.
+\item Kunna anvädna \code{for}-satser och \code{while}-satser.
+\item Kunna använda \code{math.random} för att generera slumptal i olika interval.
+\end{Goals}
+
+\begin{Preparations}
+\item Studera teorin i kapitel~\ref{chapter:W01}.
+\item Du behöver en dator med Scala installerad; se appendix~\ref{appendix:compile}.
+\end{Preparations}
+
+\BasicTasks
+
+\Task Starta Scala REPL \Eng{Read-Evaluate-Print-Loop} och skriv satsen \code{println("hejsan REPL")} och tryck på \textit{Enter}. 
+
+\begin{REPL}
+> scala
+Welcome to Scala version 2.11.7 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> println("hejsan REPL")
+\end{REPL}
+
+\Subtask Vad händer? 
+
+\Subtask Skriv samma sats igen men ''glöm bort'' att skriva högerparentesen innan du trycker på \textit{Enter}. Vad händer?
+
+\Subtask Evaulera uttrycket \code{"gurka" + "tomat"} i REPL. Vad har uttrycket för värde och typ? Vilken siffra står efter ordet \code{res} i variabeln som lagrar resultatet?
+
+\begin{REPL}
+scala> "gurka" + "tomat"   
+\end{REPL}
+
+\Subtask Evaluera uttrycket \code{res0 * 42} men byt ut \code{0}:an mot siffran efter \code{res} i utskriften från förra evalueringen. Vad har uttrycket för värde och typ?
+\begin{REPL}
+scala> res2 * 42
+\end{REPL}
+
+
+\Task\Pen Vad är en \textit{literal}? \\ \href{https://en.wikipedia.org/wiki/Literal\_\%28computer_programming\%29}{en.wikipedia.org/wiki/Literal\_(computer programming)}
+
+\Task Vilken typ har följande literaler?
+
+\Subtask \code{42} 
+
+\Subtask \code{42L}
+
+\Subtask \code{'*'}
+
+\Subtask \code{"*"}
+
+\Subtask \code{42.0}
+
+\Subtask \code{42D}
+
+\Subtask \code{42d}
+
+\Subtask \code{42F}
+
+\Subtask \code{42f}
+
+\Subtask \code{true}
+
+\Subtask \code{false}
+
+
+\Task\Pen Vad gör dessa satser? Till vad används klammer och semikolon?
+\begin{REPL}
+scala> def p = { print("hej"); print("san"); println(42); println("gurka") }
+scala> p;p;p;p
+\end{REPL}
+
+\Task\Pen Satser versus uttryck. 
+
+\Subtask Vad är det för skillnad på en sats och ett uttryck?
+
+\Subtask Ge exempel på satser som inte är uttryck?
+
+\Subtask Förklara vad som händer för varje evaluerad rad:
+\begin{REPL}[numbers=left, numberstyle=\color{black}\ttfamily\scriptsize\selectfont]
+scala> def värdeSaknas = ()
+scala> värdeSaknas
+scala> värdeSaknas.toString
+scala> println(värdeSaknas)
+scala> println(println("hej"))
+\end{REPL}
+
+\Subtask Vilken typ har literalen \code{()}?
+
+\Subtask Vilken returtyp har \code{println}?
+
+\Task Vilken typ och vilket värde har följande uttryck? 
+
+\Subtask \code{1 + 41}
+
+\Subtask \code{1.0 + 41}
+
+\Subtask \code{42.toDouble}
+
+\Subtask \code{(41 + 1).toDouble}
+
+\Subtask \code{1.042e42}
+
+\Subtask \code{42E6.toLong}
+
+\Subtask \code{"gurk" + 'a'}
+
+\Subtask \code{'A'}
+
+\Subtask \code{'A'.toInt}
+
+\Subtask \linebreak[0] \code{'0'.toInt}
+
+\Subtask \code{'1'.toInt}
+
+\Subtask \code{'9'.toInt}
+
+\Subtask \code{('A' + '0').toChar}
+
+\Subtask \code{"*!%#".charAt(0)}
+
+\Task \textit{De fyra räknesätten}. Vilket värde och vilken typ har följande uttryck?
+
+\Subtask \code{42 * 2}
+
+\Subtask \code{42.0 / 2}
+
+\Subtask \code{42 - 0.2}
+
+\Subtask \code{42L + 2d}
+
+\Task \textit{Precedensregler}. Evalueringsordningen kan styras med parenteser. Vilket värde och vilken typ har följande uttryck?
+
+\Subtask \code{42 + 2 * 2}
+
+\Subtask \code{(42 + 2) * 2}
+
+\Subtask \code{(-(2 - 42)) / (1 + 1 + 1).toDouble}
+
+\Subtask \code{((-(2 - 42)) / (1 + 1 + 1).toDouble).toInt}
+
+
+\Task \textit{Heltalsdivision}. Vilket värde och vilken typ har följande uttryck?
+
+\Subtask \code{42 / 2}
+
+\Subtask \code{42 / 4}
+
+\Subtask \code{42.0 / 4}
+
+\Subtask \code{1 / 4}
+
+\Subtask \code{1 % 4}
+
+\Subtask \code{2 % 42}
+
+\Subtask \code{42 % 2}
+
+
+\Task \textit{Hetalsomfång}. För var och en av heltalstyperna i deluppgifterna nedan: undersök i REPL med operationen \code{MaxValue} resp. \code{MinValue}, till exempel \code{Int.MaxValue} vad som är största och minsta värde. 
+
+\Subtask \code{Byte}
+
+\Subtask \code{Short}
+
+\Subtask \code{Int}
+
+\Subtask \code{Long}
+
+\Task Klassen \code{java.lang.Math} och paketobjektet \code{scala.math}.
+
+\begin{REPL}
+scala> java.lang.Math.    //tryck TAB
+scala> scala.math.        //tryck TAB
+\end{REPL}
+
+\Subtask Undersök genom att trycka på Tab-tangenten, vilka funktioner som finns i \code{Math} och \code{math}. Vad heter konstanten $\pi$ i java.lang.Math respektive scala.math?
+
+
+\Subtask Undersök dokumentationen för klassen \code{java.lang.Math} här: \\ \url{https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html} \\
+Vad gör \code{java.lang.Math.hypot}?
+
+\Subtask Undersök dokumentationen för pakobjektet \code{scala.math} här: \\
+\url{http://www.scala-lang.org/api/current/#scala.math.package} \\
+Ge exempel på någon funktion i \code{java.lang.Math} som inte finns i \code{scala.math}.
+
+%\TaskSection{Noggranhet och undantag i aritmetiska uttryck}
+
+\Task Vad händer här? Notera undantag \Eng{exceptions} och nogranhetsproblem. 
+
+\Subtask \code{Int.MaxValue} + 1
+
+\Subtask \code{1 / 0}
+
+\Subtask \code{1E8 + 1E-8}
+
+\Subtask \code{1E9 + 1E-9}
+
+\Subtask \code{math.pow(math.hypot(3,6), 2)}
+
+\Subtask \code{1.0 / 0}
+
+\Subtask \code{(1.0 / 0).toInt}
+
+\Subtask \code{math.sqrt(-1)}
+
+\Subtask \code{math.sqrt(Double.NaN)}
+
+\Subtask \code{throw new Exception("PANG!!!")}
+
+
+\Task \textit{Booelska uttryck}. Vilket värde och vilken typ har följande uttryck?
+
+\Subtask \code{true && true}
+
+\Subtask \code{false && true}
+
+\Subtask \code{true && false}
+
+\Subtask \code{false && false}
+
+\Subtask \code{true || true}
+
+\Subtask \code{false || true}
+
+\Subtask \code{true || false}
+
+\Subtask \code{false || false}
+
+\Subtask \code{42 == 42}
+
+\Subtask \code{42 != 42}
+
+\Subtask \code{42.0001 == 42}
+
+\Subtask \code{42.0000000000000001 == 42}
+
+\Subtask \code{42.0001 > 42}
+
+\Subtask \code{42.0000000000000001 > 42}
+
+\Subtask \code{42.0001 >= 42}
+
+\Subtask \code{42.0000000000000001 <= 42}
+
+\Subtask \code{true == true}
+
+\Subtask \code{true != true}
+
+\Subtask \code{true > false}
+
+\Subtask \code{true < false}
+
+\Subtask \code{'A' == 65}
+
+\Subtask \code{'S' != 66}
+
+
+\Task\Pen \textit {Variabler och tilldelning}. Rita en ny bild av datorns minne efter varje evaluerad rad nedan. Bilderna ska visa variablers namn, typ och värde. 
+\begin{REPL}[numbers=left, numberstyle=\color{black}\ttfamily\scriptsize\selectfont]
+scala> var a = 42
+scala> var b = a + 1
+scala> var c = (a + b) * 2.0
+scala> b = 0
+scala> a = 0
+scala> c = c + 1
+\end{REPL}
+Efter första raden ser minnessituationen ut så här:
+
+\vspace{0.5em}
+\begin{tikzpicture}[font=\ttfamily]
+\matrix [matrix of nodes, row sep=0, column 2/.style={nodes={rectangle,draw,minimum width=4em}}] (mat)
+{
+a: Int   &  \makebox(16,12){42}\\
+};
+\end{tikzpicture}
+
+\Task \textit{Deklarationer: \code{var}, \code{val}, \code{def}}. Evaluera varje rad nedan i tur och ordning i Scala REPL. 
+\begin{REPL}[numbers=left, numberstyle=\color{black}\ttfamily\scriptsize\selectfont]
+scala> var x = 42
+scala> x + 1
+scala> x
+scala> x = x + 1
+scala> x
+scala> x == x + 1
+scala> val y = 42
+scala> y = y + 1
+scala> var z = {println("gurka"); 42}
+scala> def w = {println("gurka"); 42}
+scala> z
+scala> z
+scala> z = z + 1
+scala> w
+scala> w
+scala> w = w + 1
+\end{REPL}
+
+\Subtask För varje rad ovan: förklara för vad som händer. 
+
+\Subtask Vilka rader ger kompileringsfel och i så fall vilket och varför?
+
+\Subtask\Pen Vad är det för skillnad på \code{var}, \code{val} och \code{def}?
+
+\Task \code{if}\textit{-sats}.För varje rad nedan; förklara vad som händer.
+\begin{REPL}[basicstyle=\color{white}\ttfamily\fontsize{9}{11}\selectfont]
+scala> if (true) println("sant") else println("falskt")
+scala> if (false) println("sant") else println("falskt")
+scala> if (!true) println("sant") else println("falskt")
+scala> if (!false) println("sant") else println("falskt")
+scala> def kasta = if (math.random > 0.5) println("krona") else println("klave")
+scala> kasta; kasta; kasta
+\end{REPL}
+
+
+\Task \code{if}\textit{-uttryck}. Deklarera följande variabler med nedan initialvärden:
+
+\begin{REPL}
+scala> var grönsak = "gurka"
+scala> var frukt = "banan"
+\end{REPL}
+
+Vad har följande uttryck för värden och typ?
+
+\Subtask \code{if (grönsak == "tomat") "gott" else "inte gott" }
+
+\Subtask \code{if (frukt == "banan") "gott" else "inte gott" }
+
+\Subtask \code{if (frukt.size == grönsak.size) "lika stora" else "olika stora" }
+
+\Subtask \code{if (true) grönsak else frukt }
+
+\Subtask \code{if (false) grönsak else frukt }
+
+
+\Task \code{for}\textit{-sats}.
+
+\Subtask Vad ger nedan \code{for}-satser för utskrift?
+
+\begin{REPL}
+scala> for (i <- 1 to 10) print(i + ", ")
+scala> for (i <- 1 until 10) print(i + ", ")
+scala> for (i <- 1 to 5) print((i * 2) + ", ")
+scala> for (i <- 1 to 92 by 10) print(i + ", ")
+scala> for (i <- 10 to 1 by -1) print(i + ", ")
+\end{REPL}
+
+\Subtask Skriv en \code{for}-sats som ger följande utskrift:
+\begin{REPL}
+A1, A4, A7, A10, A13, A16, A19, A22, A25, A28, A31, A34, A37, A40, A43, 
+\end{REPL}
+
+\Task Repetition med \code{foreach}.
+
+\Subtask Vad ger nedan satser för utskrifter?
+
+\begin{REPL}
+scala> (9 to 19).foreach{i => print(i + ", ")}
+scala> (1 until 20).foreach{i => print(i + ", ")}
+scala> (0 to 33 by 3).foreach{i => print(i + ", ")}
+\end{REPL}
+
+\Subtask Använd \code{foreach} och skriv ut följande:
+\begin{REPL}
+B33, B30, B27, B24, B21, B18, B15, B12, B9, B6, B3, B0, 
+\end{REPL}
+
+\Task \code{while}\textit{-sats}. 
+
+\Subtask Vad ger nedan satser för utskrifter?
+\begin{REPL}
+scala> var i = 0
+scala> while (i < 10) { println(i); i = i + 1 }
+scala> var j = 0; while (j <= 10) { println(j); j = j + 2 }; println(j)
+\end{REPL}
+
+\Subtask Skriv en \code{while}-sats som ger följande utskrift. Använd en variabel \code{k} som initialiseras till 1.
+\begin{REPL}
+A1, A4, A7, A10, A13, A16, A19, A22, A25, A28, A31, A34, A37, A40, A43, 
+\end{REPL}
+
+\Subtask\Pen Vilken av \code{for}, \code{while} och \code{foreach} är kortast att skriva om man vill repetera mer än en sats 100 gånger? Vilken tycker du är lättast att läsa? 
+
+\Task \textit{Slumptal}. Undersök vad dokumentationen säger om funktionen \code{scala.math.random}:\\
+\url{http://www.scala-lang.org/api/current/#scala.math.package} 
+
+\Subtask\Pen Vilken typ har värdet som returneras av funktionen \code{random}? 
+ 
+\Subtask\Pen Vilket är det minsta respektive största värde som kan returneras? 
+
+\Subtask\Pen Är \code{random} en \textit{äkta} funktion \Eng{pure function} i matematisk mening?
+
+\Subtask Anropa funktionen \code{math.random} upprepade gånger och notera vad som händer. Använd pil-upp-tangenten.
+\begin{REPL}
+scala> math.random
+\end{REPL}
+
+
+\Subtask Vad händer? Använd \textit{pil-upp} och kör nedan \code{for}-sats flera gånger. Förklara vad som sker.
+
+\begin{REPL}
+scala> for (i <- 1 to 10) println(math.random)
+\end{REPL}
+
+\Subtask Skriv en for-sats som skriver ut 100 slumpmässiga heltal från 0 till och med 9 på var sin rad. 
+
+\begin{REPL}
+scala> for (i <- 1 to 100) println(???)
+\end{REPL}
+
+\Subtask Skriv en for-sats som skriver ut 100 slumpmässiga heltal från 1 till och med 6 på samm rad. 
+
+\begin{REPL}
+scala> for (i <- 1 to 100) print(???)
+\end{REPL}
+
+
+\Subtask Använd \textit{pil-upp} och kör nedan \code{while}-sats flera gånger. Förklara vad som sker.
+
+\begin{REPL}
+scala> while (math.random > 0.2) { println("gurka") }
+\end{REPL}
+
+\Subtask Ändra i \code{while}-satsen ovan så att sannolikheten ökar att riktigt många  strängar ska skrivs ut.
+
+\Subtask Förklara vad som händer nedan.
+\begin{REPL}
+scala> var slumptal = math.random
+scala> while (slumptal > 0.2) { println(slumptal); slumptal = math.random }
+\end{REPL}
+
+\Task\Pen \textit{Logik och De Morgans Lagar}. Förenkla följande uttryck. Antag att \code{poäng} och \code{highscore} är heltalsvariabler medan \code{klar} är av typen \code{Boolean}. 
+
+\Subtask \code{poäng > 100 && poäng > 1000}
+
+\Subtask \code{poäng > 100 || poäng > 1000}
+
+\Subtask \code{!(poäng > highscore)}
+
+\Subtask \code{!(poäng > 0 && poäng < highscore) }
+
+\Subtask \code{!(poäng < 0 || poäng > highscore) }
+
+\Subtask \code{klar == true}
+
+\Subtask \code{klar == false}
+
+
+\ExtraTasks
+
+\Task \textit{Slumptal}.
+
+\Subtask Ersätt \code{???} nedan med literaler så att \code{tärning} returnerar ett slumpmässigt heltal mellan 1 och 6.
+\begin{REPL}
+scala> def tärning = (math.random * ??? + ???).toInt 
+\end{REPL}
+
+\Subtask Ersätt \code{???} med literaler så att rnd blir ett decimaltal med max en decimal mellan 0.0 och 1.0.
+\begin{REPL}
+scala> def rnd = math.round(math.random * ???) / ??? 
+\end{REPL}
+
+\Subtask Vad blir det för skillnad om \code{math.round} ersätts med \code{math.floor} ovan? (Se dokumentationen av \code{java.lang.Math.round} och \code{java.lang.Math.floor}.)
+
+\AdvancedTasks
+
+\Task Integer.toBinaryString, Integer.toHexString
+
+\Task Typannoteringar.
+
+\Task 0x2a
+
+\Task \code{i += 1; i *= 1; i /= 2}
+
+\Task BigInt, BigDecimal
+
+\Task Vad händer här? 
+\begin{REPL}
+scala> Math.multiplyExact(2, 42)
+scala> Math.multiplyExact(Int.MaxValue, Int.MaxValue)
+\end{REPL}
+
+\Task Sök reda på dokumentationen i javadoc för klassen \code{java.lang.Math} i JDK 8. Tryck Ctrl+F i webbläsaren och sök efter förekomster av texten \textit{''overflow''}. Vad är ''overflow''? Vilka metoder finns i \code{java.lang.Math} som hjälper dig att upptäcka om det blir overflow?
+
+\Task Använda Scala REPL för att undersöka konstanterna nedan. Vilket av dessa värden är negativt? Vad kan man ha för praktisk nytta av dessa värden i ett program som gör flyttalsberäkningar?
+
+\Subtask \code{java.lang.Double.MIN_VALUE}
+
+\Subtask \code{scala.Double.MinValue} 
+
+\Subtask \code{scala.Double.MinPositiveValue}
+
+\Task För typerna \code{Byte}, \code{Short}, \code{Char}, \code{Int}, \code{Long}, \code{Float}, \code{Double}: Undersök hur många bitar som behövs för att representera varje typs omfång? \\*
+\textit{Tips:} Några användbara uttryck: \\*
+ \code{Integer.toBinaryString(Int.MaxValue + 1).size} \\*
+ \code{Integer.toBinaryString((math.pow(2,16) - 1).toInt).size} \\*
+ \code{1 + math.log(Long.MaxValue)/math.log(2)}
+Se även språkspecifikationen för Scala, kapitlet om heltalsliteraler: \\
+\url{http://www.scala-lang.org/files/archive/spec/2.11/01-lexical-syntax.html#integer-literals}
+
+\Subtask Undersök källkoden för pakobjektet \code{scala.math} här: \\
+\url{https://github.com/scala/scala/blob/v2.11.7/src/library/scala/math/package.scala} \\
+Hur många olika överlagrade varianter av funktionen \code{abs} finns det och för vilka parametertyper är den definierad?
+
+
+
